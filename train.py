@@ -2,6 +2,8 @@
 train new simple CNN model on MNIST
 """
 
+import os
+
 import torch
 from torch import nn
 import torch.nn.functional as F
@@ -69,6 +71,10 @@ def main():
                 correct += (pred.argmax(1) == y).sum().item()
 
         print(f'test:\n  accuracy: {correct / size:>0.4f}\n  loss: {test_loss / num_batches:>8f}\n')
+
+    # save
+    os.makedirs('./etc/models', exist_ok=True)
+    torch.save(model.state_dict(), './etc/models/cnn_mnist.pth')
 
 
 if __name__ == '__main__':
