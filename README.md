@@ -25,6 +25,8 @@ Train new model
 python train.py
 ```
 
+Once the trained model has been uploaded to IPFS, define the `IPFS_MODEL_HASH` variable in your `.env` file
+
 Deploy model to web3 infrastructure
 ```
 python deploy --infra ocean

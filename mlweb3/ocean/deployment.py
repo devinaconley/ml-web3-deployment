@@ -10,7 +10,7 @@ from brownie.network import accounts
 from ocean_lib.web3_internal.utils import connect_to_network
 from ocean_lib.example_config import ExampleConfig
 from ocean_lib.ocean.ocean import Ocean
-from ocean_lib.structures.file_objects import UrlFile
+from ocean_lib.structures.file_objects import UrlFile, IpfsFile
 from ocean_lib.services.service import Service
 
 
@@ -40,8 +40,8 @@ def setup():
     data_nft = ocean.create_data_nft('MNIST dataset', 'MNIST', from_wallet=alice_wallet)
     print('Created data NFT: {}'.format(data_nft.address))
 
-    data_token = data_nft.create_datatoken('MNIST datatoken', 'MNIST-DT', from_wallet=alice_wallet)
-    print('Created datatoken: {}'.format(data_token.address))
+    data_token = data_nft.create_datatoken('MNIST dataset token', 'MNIST-DT', from_wallet=alice_wallet)
+    print('Created data token: {}'.format(data_token.address))
 
     files = [
         UrlFile(url='https://ossci-datasets.s3.amazonaws.com/mnist/train-images-idx3-ubyte.gz'),
@@ -78,7 +78,7 @@ def setup():
         'author': 'LeCun, Yann and Cortes, Corinna and Burges, CJ',
         'license': 'Unknown',
     }
-    asset = ocean.assets.create(
+    data_asset = ocean.assets.create(
         metadata=metadata,
         publisher_wallet=alice_wallet,
         files=files,
@@ -86,4 +86,45 @@ def setup():
         data_nft_address=data_nft.address,
         deployed_datatokens=[data_token],
     )
-    print('Published dataset asset DID: {}'.format(asset.did))
+    print('Published dataset asset DID: {}'.format(data_asset.did))
+
+    # publish model weights
+    weights_nft = ocean.create_data_nft('CNN MNIST weights', 'CNN-MNIST', from_wallet=alice_wallet)
+    print('Created weights NFT: {}'.format(weights_nft.address))
+
+    weights_token = weights_nft.create_datatoken('CNN MNIST weights token', 'CNN-MNIST-DT', from_wallet=alice_wallet)
+    print('Created weights token: {}'.format(weights_token.address))
+
+    files = [IpfsFile(hash=os.getenv('IPFS_MODEL_HASH'))]
+
+    # create compute service
+    compute_service = Service(
+        service_id='2',
+        service_type='compute',
+        service_endpoint=ocean.config_dict['PROVIDER_URL'],
+        datatoken=weights_token.address,
+        files=files,
+        timeout=3600,
+        compute_values=compute_values,
+    )
+
+    # publish weights with compute service on-chain
+    created = '2022-11-16T12:00:00Z'
+    metadata = {
+        'created': created,
+        'updated': created,
+        'description': 'CNN weights trained on MNIST handwritten digit database',
+        'name': 'CNN MNIST weights',
+        'type': 'dataset',
+        'author': 'Alice',
+        'license': 'Unknown',
+    }
+    weights_asset = ocean.assets.create(
+        metadata=metadata,
+        publisher_wallet=alice_wallet,
+        files=files,
+        services=[compute_service],
+        data_nft_address=weights_nft.address,
+        deployed_datatokens=[weights_token],
+    )
+    print('Published weights asset DID: {}'.format(weights_asset.did))

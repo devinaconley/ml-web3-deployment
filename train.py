@@ -3,6 +3,7 @@ train new simple CNN model on MNIST
 """
 
 import os
+import requests
 
 import torch
 from torch import nn
@@ -10,11 +11,14 @@ import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torchvision import datasets
 from torchvision.transforms import ToTensor
+from dotenv import load_dotenv
 
 from mlweb3.model import SimpleCNN
 
 
 def main():
+    load_dotenv()
+
     # data loaders
     data_train = DataLoader(
         datasets.MNIST('./etc/mnist', train=True, download=True, transform=ToTensor()),
@@ -75,6 +79,16 @@ def main():
     # save
     os.makedirs('./etc/models', exist_ok=True)
     torch.save(model.state_dict(), './etc/models/cnn_mnist.pth')
+
+    # upload to ipfs
+    with open('./etc/models/cnn_mnist.pth', 'rb') as f:
+        res = requests.post(
+            'https://ipfs.infura.io:5001/api/v0/add',
+            files={'cnn_mnist.pth': f},
+            auth=(os.getenv('INFURA_IPFS_ID'), os.getenv('INFURA_IPFS_KEY'))
+        )
+        res = res.json()
+        print(f'{res["Name"]} uploaded to IPFS with hash: {res["Hash"]} and size: {res["Size"]}')
 
 
 if __name__ == '__main__':
