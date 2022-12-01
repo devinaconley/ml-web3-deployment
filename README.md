@@ -29,5 +29,10 @@ Once the trained model has been uploaded to IPFS, define the `IPFS_MODEL_HASH` v
 
 Deploy model to web3 infrastructure
 ```
-python deploy --infra ocean
+python deploy.py --infra ocean
+```
+
+Make predictions with deployed model
+```
+python predict.py --infra ocean
 ```

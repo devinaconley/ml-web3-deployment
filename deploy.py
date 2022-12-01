@@ -1,5 +1,5 @@
 """
-deployed trained model to web3 infra
+deploy trained model to web3 infra
 """
 
 from mlweb3.ocean.deployment import deploy
