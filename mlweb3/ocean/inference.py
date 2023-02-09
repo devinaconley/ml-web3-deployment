@@ -78,14 +78,16 @@ def predict():
     assert datasets, 'payment for dataset unsuccessful'
     assert algorithm, 'payment for algorithm unsuccessful'
 
+    # NOTE: not currently possible to use multiple input datasets on a single compute job
+
     # start compute job
     t0 = datetime.datetime.utcnow()
     job_id = ocean.compute.start(
         consumer_wallet=bob_wallet,
-        dataset=data_compute_input,
+        dataset=datasets[0],
         compute_environment=free_c2d_env['id'],
-        algorithm=algo_compute_input,
-        additional_datasets=[weights_compute_input]
+        algorithm=algorithm,
+        # additional_datasets=[datasets[1]]
     )
     print('Started compute job: {}'.format(job_id))
 
