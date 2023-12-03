@@ -10,16 +10,17 @@ from dotenv import load_dotenv
 from brownie.network import accounts
 from web3 import Web3
 from ocean_lib.web3_internal.utils import connect_to_network
-from ocean_lib.example_config import ExampleConfig
+from ocean_lib.example_config import get_config_dict
 from ocean_lib.ocean.ocean import Ocean
 from ocean_lib.models.compute_input import ComputeInput
 
 
+# TODO update to latest client version
 def predict():
     # configure client
     load_dotenv()
     connect_to_network('mumbai')
-    config = ExampleConfig.get_config('mumbai')
+    config = get_config_dict('mumbai')
     ocean = Ocean(config)
     print(config)
 
@@ -38,9 +39,9 @@ def predict():
     assert bob_balance > 0
 
     # resolve assets
-    data_asset = ocean.assets.resolve('did:op:9a4c1fe5fcec7d4071b8afdbb17dcc2c05b1ecf8cf512f556ef8f38116a594c3')
-    weights_asset = ocean.assets.resolve('did:op:733ca2bfe560f6a66cc1e5cc2b6b91799db77e5fdbd41d4e1a402cb944bcdf43')
-    algo_asset = ocean.assets.resolve('did:op:0c3c2c9099c67a49128379e5781e48fccb6125d335464d07edcceae78e7f729c')
+    data_asset = ocean.assets.resolve('did:op:5e63539bd570ca76711dbe7e65fa2bebdfe694d840e7052519d58da6a1c848c1')
+    weights_asset = ocean.assets.resolve('did:op:0533b845f2ece7ee7e7d9c2e299a2a383bc1085299fe24dbd5befef7e6e1e486')
+    algo_asset = ocean.assets.resolve('did:op:335cdac9106166f690381e9056bb499007a00ea2100d21d2fc88b932bcaaad3a')
 
     data_token = ocean.get_datatoken(data_asset.datatokens[0]['address'])
     weights_token = ocean.get_datatoken(weights_asset.datatokens[0]['address'])

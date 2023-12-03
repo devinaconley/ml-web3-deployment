@@ -25,11 +25,11 @@ dependencies:
   - zlib
   - zstd
   - pip:
-    - eth-brownie~=1.19.1
+    - eth-brownie
     - mypy-extensions
     - numpy
-    - ocean-contracts==1.1.7
-    - ocean-lib==2.0.0a2
+    - ocean-contracts
+    - ocean-lib~=2.0.1
     - packaging
     - pillow
     - pytest
@@ -38,6 +38,8 @@ dependencies:
     - scipy
     - setuptools
     - tqdm
+    # - uagent (install manually if needed)
+    - protobuf==3.20.*
     - vyper
     - web3
 prefix: /home/devin/miniconda3/envs/ml-web3-deployment

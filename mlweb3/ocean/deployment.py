@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 
 from brownie.network import accounts
 from ocean_lib.web3_internal.utils import connect_to_network
-from ocean_lib.example_config import ExampleConfig
+from ocean_lib.example_config import get_config_dict
 from ocean_lib.ocean.ocean import Ocean
 from ocean_lib.structures.file_objects import UrlFile, IpfsFile
 from ocean_lib.services.service import Service
@@ -18,7 +18,7 @@ def deploy():
     # configure client
     load_dotenv()
     connect_to_network('mumbai')
-    config = ExampleConfig.get_config('mumbai')
+    config = get_config_dict('mumbai')
     ocean = Ocean(config)
     print(config)
 
