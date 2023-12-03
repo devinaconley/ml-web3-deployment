@@ -1,5 +1,5 @@
 """
-algorithm asset for ocean infernce
+algorithm asset for ocean inference
 """
 
 import os

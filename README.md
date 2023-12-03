@@ -4,8 +4,18 @@ ML + web3 model deployment survey
 ## Setup
 
 Create [miniconda](https://docs.conda.io/en/latest/miniconda.html) virtual environment
+
+_Temp [workaround](https://github.com/yaml/pyyaml/issues/601#issuecomment-1813963845)_
 ```
-conda env create -f environment.yml
+conda create -n ml-web3-deployment python=3.10
+conda activate ml-web3-deployment
+pip install "cython<3.0.0" wheel
+pip install "pyyaml==5.4.1" --no-build-isolation
+```
+
+_Install rest of environment_
+```
+conda env update -f environment.yml
 ```
 
 Activate virtual environment
