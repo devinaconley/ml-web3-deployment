@@ -1,4 +1,4 @@
-name: mlweb3
+name: mlweb3-fetch
 channels:
   - pytorch
   - conda-forge
@@ -26,4 +26,6 @@ dependencies:
   - zstd
   - pip:
     - python-dotenv
-prefix: /home/devin/miniconda3/envs/mlweb3
+    # ---- fetch.ai ----
+    - uagents~=0.9.0
+prefix: /home/devin/miniconda3/envs/mlweb3-fetch

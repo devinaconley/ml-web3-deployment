@@ -1,4 +1,4 @@
-name: mlweb3
+name: mlweb3-ocean
 channels:
   - pytorch
   - conda-forge
@@ -26,4 +26,10 @@ dependencies:
   - zstd
   - pip:
     - python-dotenv
-prefix: /home/devin/miniconda3/envs/mlweb3
+    # ---- ocean ----
+    - eth-brownie
+    - ocean-contracts
+    - ocean-lib~=2.0.1
+    - protobuf==3.20.*
+    - web3
+prefix: /home/devin/miniconda3/envs/mlweb3-ocean

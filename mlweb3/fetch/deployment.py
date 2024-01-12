@@ -5,12 +5,7 @@ import io
 import base64
 
 import torch
-from torch import nn
-import torch.nn.functional as F
-from torch.utils.data import DataLoader
-from torchvision import datasets
 from torchvision.transforms import ToTensor, Compose
-from torchvision.transforms.functional import pil_to_tensor
 
 from PIL import Image
 from uagents import Agent, Context, Model

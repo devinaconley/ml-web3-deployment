@@ -3,17 +3,17 @@ make predictions with deployed model on web3 infra
 """
 import argparse
 
-from mlweb3.ocean.inference import predict as predict_ocean
-from mlweb3.fetch.inference import predict as predict_fetch
-
 
 def main():
     args = parse_arguments()
     match args['infra']:
         case 'ocean':
-            predict_ocean()
+            from mlweb3.ocean.inference import predict
         case 'fetch':
-            predict_fetch()
+            from mlweb3.fetch.inference import predict
+        case _:
+            raise ValueError('unsupported infra')
+    predict()
 
 
 def parse_arguments():

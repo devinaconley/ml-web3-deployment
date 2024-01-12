@@ -3,17 +3,18 @@ deploy trained model to web3 infra
 """
 import argparse
 
-from mlweb3.ocean.deployment import deploy as deploy_ocean
-from mlweb3.fetch.deployment import deploy as deploy_fetch
-
 
 def main():
     args = parse_arguments()
     match args['infra']:
         case 'ocean':
-            deploy_ocean()
+            from mlweb3.ocean.deployment import deploy
         case 'fetch':
-            deploy_fetch()
+            from mlweb3.fetch.deployment import deploy
+            deploy()
+        case _:
+            raise ValueError('unsupported infra')
+    deploy()
 
 
 def parse_arguments():

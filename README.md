@@ -3,29 +3,30 @@ ML + web3 model deployment survey
 
 ## Setup
 
-Create [miniconda](https://docs.conda.io/en/latest/miniconda.html) virtual environment
-
-_Temp [workaround](https://github.com/yaml/pyyaml/issues/601#issuecomment-1813963845)_
-```
-conda create -n ml-web3-deployment python=3.10
-conda activate ml-web3-deployment
-pip install "cython<3.0.0" wheel
-pip install "pyyaml==5.4.1" --no-build-isolation
-```
-
-_Install rest of environment_
+Create primary [miniconda](https://docs.conda.io/en/latest/miniconda.html) virtual environment
 ```
 conda env update -f environment.yml
 ```
 
+Create virtual environments for specific web3 infra provider (e.g. for ocean)
+```
+conda env update -f etc/requirements/environment-ocean.yml
+```
+
 Activate virtual environment
 ```
-conda activate ml-web3-deployment
+conda activate mlweb3
+```
+or for specific provider
+```
+conda activate mlweb3[-provider]
 ```
 
 Copy `.env.template` to `.env` and define variables
 
 Update brownie configuration as needed for RPC access
+
+For Golem support, also install the [yagna](https://docs.golem.network/docs/quickstarts/python-quickstart) CLI and service
 
 
 ## Run
@@ -36,6 +37,11 @@ python train.py
 ```
 
 Once the trained model has been uploaded to IPFS, define the `IPFS_MODEL_HASH` variable in your `.env` file
+
+Activate appropriate virtual environment (e.g. for ocean)
+```
+python activate mlweb3-ocean
+```
 
 Deploy model to web3 infrastructure
 ```
