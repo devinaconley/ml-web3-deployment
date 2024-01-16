@@ -26,7 +26,7 @@ Copy `.env.template` to `.env` and define variables
 
 Update brownie configuration as needed for RPC access
 
-For Golem support, also install the [yagna](https://docs.golem.network/docs/quickstarts/python-quickstart) CLI and service
+For Golem support, also install the [yagna](https://docs.golem.network/docs/creators/python/examples/tools/yagna-installation-for-requestors) CLI and service
 
 
 ## Run

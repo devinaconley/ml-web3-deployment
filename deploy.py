@@ -12,6 +12,9 @@ def main():
         case 'fetch':
             from mlweb3.fetch.deployment import deploy
             deploy()
+        case 'golem':
+            from mlweb3.golem.deployment import deploy
+            deploy()
         case _:
             raise ValueError('unsupported infra')
     deploy()
@@ -19,7 +22,7 @@ def main():
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--infra', choices=['ocean', 'fetch'])
+    parser.add_argument('-i', '--infra', choices=['ocean', 'fetch', 'golem'])
     return vars(parser.parse_args())
 
 
