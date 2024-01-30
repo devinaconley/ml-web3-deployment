@@ -2,25 +2,19 @@
 deployment logic for golem network
 """
 # lib
-import io
-import base64
 import asyncio
 from typing import AsyncIterable
 
 from dotenv import load_dotenv
-
-import torch
-from torchvision.transforms import ToTensor, Compose
-from PIL import Image
 
 from yapapi import Golem, Task, WorkContext
 from yapapi.log import enable_default_logger
 from yapapi.payload import vm
 
 # src
-from mlweb3.model import SimpleCNN
+from mlweb3.golem.app import run
 
-model: SimpleCNN = None
+LOCAL = True  # set true for local flask app development
 
 
 async def worker(context: WorkContext, tasks: AsyncIterable[Task]):
@@ -42,7 +36,10 @@ async def main():
 
 
 def deploy():
-    print('hello world')
+    if LOCAL:
+        run()
+        return
+    print('deploying to golem network...')
     load_dotenv()
     loop = asyncio.get_event_loop()
     task = loop.create_task(main())

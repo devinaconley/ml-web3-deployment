@@ -11,10 +11,8 @@ def main():
             from mlweb3.ocean.deployment import deploy
         case 'fetch':
             from mlweb3.fetch.deployment import deploy
-            deploy()
         case 'golem':
             from mlweb3.golem.deployment import deploy
-            deploy()
         case _:
             raise ValueError('unsupported infra')
     deploy()

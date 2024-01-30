@@ -11,6 +11,8 @@ def main():
             from mlweb3.ocean.inference import predict
         case 'fetch':
             from mlweb3.fetch.inference import predict
+        case 'golem':
+            from mlweb3.golem.inference import predict
         case _:
             raise ValueError('unsupported infra')
     predict()
@@ -18,7 +20,7 @@ def main():
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('-i', '--infra', choices=['ocean', 'fetch'])
+    parser.add_argument('-i', '--infra', choices=['ocean', 'fetch', 'golem'])
     return vars(parser.parse_args())
 
 

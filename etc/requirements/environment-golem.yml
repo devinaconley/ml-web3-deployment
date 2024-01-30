@@ -27,5 +27,6 @@ dependencies:
   - pip:
     - python-dotenv
     # ---- golem ----
+    - flask~=3.0.1
     - yapapi~=0.12.0
 prefix: /home/devin/miniconda3/envs/mlweb3-golem
