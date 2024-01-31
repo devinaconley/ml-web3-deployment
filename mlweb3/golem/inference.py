@@ -5,6 +5,7 @@ inference logic for golem client
 import io
 import base64
 import random
+import time
 
 import requests
 from torch.utils.data import Dataset
@@ -26,7 +27,7 @@ def classify_image():
         im.save(buffer, format='png')
         data = base64.b64encode(buffer.getvalue())
 
-    print(f'sending image classification request to service (actual label: {label})')
+    print('sending image classification request to golem service...')
     res = requests.post(
         url=f'{SERVICE_HOST}:{SERVICE_PORT}/classify',
         json={'image': data.decode('utf-8')}
@@ -35,7 +36,7 @@ def classify_image():
         print(res.text)
         return
     body = res.json()
-    print(f'classification response from service, label: {body["label"]}: score: {body["score"]:.2f}')
+    print(f'response from service. predicted: {body["label"]}, actual: {label}, score: {body["score"]:.2f}')
 
 
 def predict():
@@ -46,3 +47,4 @@ def predict():
     dataset = datasets.MNIST('./etc/mnist', train=False, download=True)
     for _ in range(100):
         classify_image()
+        time.sleep(0.1)

@@ -21,7 +21,7 @@ from mlweb3.golem.app import run
 
 LOCAL = False  # set true for local flask app development
 PORT = 5000
-IMAGE_HASH = '8a1e55e6e7212cbc4754b74a6d590809d47708bada50fee9ecb15dd0'
+IMAGE_HASH = '5f0285d7d3ec7f58b9ba174a7b15ec0de16d0a361af756c48a44cbab'  # see custom image docs
 
 
 class ClassifierService(HttpProxyService):
@@ -42,6 +42,15 @@ class ClassifierService(HttpProxyService):
         script = self._ctx.new_script(timeout=None)
         script.run("/bin/bash", "-c", 'python3 app.py > /mlweb3/out 2> /mlweb3/err &')
         yield script
+
+    async def run(self):
+        while True:
+            await asyncio.sleep(10)
+            script = self._ctx.new_script(timeout=timedelta(seconds=5))
+            res = script.run('/bin/bash', '-c', 'tail -10 /mlweb3/output.log')
+            yield script
+            output = (await res).stdout
+            print(output)
 
     async def reset(self):
         pass
