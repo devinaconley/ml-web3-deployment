@@ -12,8 +12,8 @@ RUN apt-get update && \
 RUN python3 --version
 
 # install packages
-RUN pip install torch torchvision --index-url https://download.pytorch.org/whl/cu113
-RUN pip install Flask~=3.0.1
+RUN pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cu113
+RUN pip install --no-cache-dir Flask~=3.0.1
 
 # app
 WORKDIR /mlweb3

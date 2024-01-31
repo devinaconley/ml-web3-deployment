@@ -5,6 +5,7 @@ flask app to run MNIST classifier as golem service
 # lib
 import io
 import base64
+import logging
 
 from flask import Flask, request
 import torch
@@ -51,13 +52,21 @@ def classify_image():
     label = int(y.argmax(1))
 
     # respond
-    print(f'received request from {request.user_agent}, image: {im.size}, predicted: {label}')
+    logging.info(f'handled request, image: {im.size}, predicted: {label}')
 
     return {'label': label, 'score': float(y[0, label])}, 200
 
 
-def run():
-    app.run(host='0.0.0.0')
+def run(port=5000):
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s [%(levelname)s] %(message)s',
+        handlers=[
+            logging.FileHandler('output.log'),
+            logging.StreamHandler()
+        ]
+    )
+    app.run(host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
