@@ -34,7 +34,7 @@ def classify_image():
     global model
     if model is None:
         model = SimpleCNN()
-        model.load_state_dict(torch.load('./etc/models/cnn_mnist.pth'))
+        model.load_state_dict(torch.load('./etc/models/cnn_mnist.pth', map_location=torch.device('cpu')))
         model.eval()
 
     # parse image data
