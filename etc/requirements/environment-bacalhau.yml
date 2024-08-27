@@ -1,4 +1,4 @@
-name: mlweb3-golem
+name: mlweb3-bacalhau
 channels:
   - pytorch
   - conda-forge
@@ -6,7 +6,6 @@ channels:
 dependencies:
   - bzip2
   - ca-certificates
-  - cudatoolkit=11.6.0
   - pip
   - python=3.10
   - pytorch=1.12.1
@@ -26,9 +25,6 @@ dependencies:
   - zstd
   - pip:
     - python-dotenv
-    # ---- golem ----
-    - flask~=3.0.1
-    - gvmkit-build
-    - numpy<2
-    - yapapi~=0.12.0
-prefix: /home/devin/miniconda3/envs/mlweb3-golem
+    # ---- bacalhau ----
+    - bacalhau-sdk
+prefix: /home/devin/miniconda3/envs/mlweb3-bacalhau

@@ -26,7 +26,7 @@ Copy `.env.template` to `.env` and define variables
 
 Update brownie configuration as needed for RPC access
 
-For Golem support, also install the [yagna](https://docs.golem.network/docs/creators/python/examples/tools/yagna-installation-for-requestors) CLI and service
+For Golem support, also install the [yagna](https://docs.golem.network/docs/quickstarts/python-quickstart) CLI and service
 
 
 ## Run
@@ -40,7 +40,7 @@ Once the trained model has been uploaded to IPFS, define the `IPFS_MODEL_HASH` v
 
 Activate appropriate virtual environment (e.g. for ocean)
 ```
-python activate mlweb3-ocean
+conda activate mlweb3-ocean
 ```
 
 Deploy model to web3 infrastructure
