@@ -1,6 +1,5 @@
 name: mlweb3-bacalhau
 channels:
-  - pytorch
   - conda-forge
   - defaults
 dependencies:
@@ -8,14 +7,11 @@ dependencies:
   - ca-certificates
   - pip
   - python=3.10
-  - pytorch=1.12.1
-  - pytorch-mutex
   - readline
   - requests
   - six
   - sqlite
   - tk
-  - torchvision=0.13.1
   - typing_extensions
   - tzdata
   - urllib3
@@ -26,5 +22,5 @@ dependencies:
   - pip:
     - python-dotenv
     # ---- bacalhau ----
-    - bacalhau-sdk
+    - bacalhau-sdk~=1.4.2
 prefix: /home/devin/miniconda3/envs/mlweb3-bacalhau
