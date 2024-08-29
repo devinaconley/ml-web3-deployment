@@ -17,17 +17,21 @@ def main():
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(f'using device {device}')
 
+    # note: data and weights mounted from ipfs
+    print(os.listdir('/data'))
+    print(os.listdir('/data/mnist/MNIST/raw'))
+    print(os.listdir('/data/models'))
+
     # load model
     print(f'loading SimpleCNN...')
     model = SimpleCNN()
-    model.load_state_dict(torch.load('./etc/models/cnn_mnist.pth', map_location=torch.device(device)))
+    model.load_state_dict(torch.load('/data/models/cnn_mnist.pth', map_location=torch.device(device)))
     model.eval()
     model = model.to(device)
 
     # get data
-    os.makedirs('./etc/mnist', exist_ok=True)
     data = DataLoader(
-        datasets.MNIST('./etc/mnist', train=False, download=True, transform=ToTensor()),
+        datasets.MNIST('/data/mnist', train=False, download=False, transform=ToTensor()),
         batch_size=64
     )
 
@@ -43,6 +47,13 @@ def main():
             predictions.extend(pred.argmax(1).cpu().numpy().tolist())
 
     print(f'test:\n  correct: {correct}\n  total: {total}\n  accuracy: {correct / total:>0.4f}')
+
+    # write output
+    os.makedirs('./output', exist_ok=True)
+    with open('./output/results.txt', 'w') as f:
+        f.write(f'correct: {correct}\ntotal: {total}\naccuracy: {correct / total:>0.4f}\n\npredictions:\n')
+        for p in predictions:
+            f.write(f'{p}\n')
 
 
 if __name__ == '__main__':

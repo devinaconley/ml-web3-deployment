@@ -18,6 +18,5 @@ RUN pip install --no-cache-dir torch torchvision --index-url https://download.py
 WORKDIR /mlweb3
 COPY mlweb3/bacalhau/job.py job.py
 COPY mlweb3/model.py mlweb3/model.py
-COPY etc/models/cnn_mnist.pth etc/models/cnn_mnist.pth
 
 CMD python3 job.py

@@ -81,14 +81,31 @@ def main():
     torch.save(model.state_dict(), './etc/models/cnn_mnist.pth')
 
     # upload to ipfs
+    ipfs_auth = (os.getenv('INFURA_IPFS_ID'), os.getenv('INFURA_IPFS_KEY'))
     with open('./etc/models/cnn_mnist.pth', 'rb') as f:
         res = requests.post(
             'https://ipfs.infura.io:5001/api/v0/add',
             files={'cnn_mnist.pth': f},
-            auth=(os.getenv('INFURA_IPFS_ID'), os.getenv('INFURA_IPFS_KEY'))
+            auth=ipfs_auth
         )
         res = res.json()
         print(f'{res["Name"]} uploaded to IPFS with hash: {res["Hash"]} and size: {res["Size"]}')
+
+    mnist_files = {}
+    for f in ['t10k-images-idx3-ubyte', 't10k-labels-idx1-ubyte', 'train-images-idx3-ubyte', 'train-labels-idx1-ubyte']:
+        p = f'MNIST/raw/{f}'
+        mnist_files[p] = open(f'./etc/mnist/{p}', 'rb')
+    res = requests.post(
+        'https://ipfs.infura.io:5001/api/v0/add',
+        files=mnist_files,
+        auth=ipfs_auth,
+        params={'wrap-with-directory': True}
+    )
+    print('uploaded MNIST to IPFS:')
+    print(res.text)
+
+    for f in mnist_files.values():
+        f.close()
 
 
 if __name__ == '__main__':
