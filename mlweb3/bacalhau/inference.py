@@ -8,7 +8,7 @@ from bacalhau_apiclient import Job, Task, InputSource, ResultPath, Resources, Ti
 from bacalhau_apiclient.models.api_put_job_request import ApiPutJobRequest
 from bacalhau_sdk.jobs import Jobs
 
-IMAGE = 'devinaconley/mnist-pytorch-gpu:0.1'
+IMAGE = 'devinaconley/mnist-pytorch-gpu:0.2'
 
 
 def predict():
@@ -74,7 +74,8 @@ def predict():
             print(res.job.state.message)
             break
 
-        print(res)
+        print(state)
+        print(res.job.tasks)
         print(f'job completed: {job_id}')
 
         res = jobs.results(job_id)

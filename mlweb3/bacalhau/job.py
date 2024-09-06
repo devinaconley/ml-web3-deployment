@@ -49,8 +49,7 @@ def main():
     print(f'test:\n  correct: {correct}\n  total: {total}\n  accuracy: {correct / total:>0.4f}')
 
     # write output
-    os.makedirs('./output', exist_ok=True)
-    with open('./output/results.txt', 'w') as f:
+    with open('/output/results.txt', 'w') as f:
         f.write(f'correct: {correct}\ntotal: {total}\naccuracy: {correct / total:>0.4f}\n\npredictions:\n')
         for p in predictions:
             f.write(f'{p}\n')
